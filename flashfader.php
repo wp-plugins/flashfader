@@ -160,10 +160,15 @@ $out .= '</gallery>';
 */
 function lynkff_writeFlashHtml($height,$width,$color)
 {
-	
 
-	$tmpl = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
- width="'.$width.'" height="'.$height.'" id="flashfader" align=""><param name="movie" value="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf"><param name="FlashVars" value="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml"><param name="quality" value="high"><param name="bgcolor" value="'.$color.'"><embed src="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" FlashVars="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml" quality="high" bgcolor="'.$color.'" width="'.$width.'" height="'.$height.'" name="flashfader" align="" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></object>';
+	$tmpl = '
+<object type="application/x-shockwave-flash" data="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" width="'.$width.'" height="'.$height.'">
+<param name="bgcolor" value="'.$color.'" />
+<param name="movie" value="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" />
+<param name="FlashVars" value="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml" />
+<param name="quality" value="high" />
+</object>
+';
 
 	$handle = fopen(ABSPATH.'wp-content/flashfader/flashfaderhtml.txt', 'w');
 	fwrite($handle,$tmpl);
