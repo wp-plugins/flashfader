@@ -3,12 +3,12 @@
 
 Plugin Name: Flashfader
 Plugin URI: http://www.lynk.de/flashfader/
-Description: This plugin allows you to put a flash slidehow on your site. The complete configuration is done via the admin panel: image uploading, resizing of the displayed flash, slidehow timings, etc.
-Version: 1.0
+Description: This plugin allows you to put a flash slideshow on your site. Image upload & configuration via the admin panel.
+Version: 1.1
 Author: Marcus Grellert
 Author URI: http://www.lynk.de/
 
-Copyright (c) 2005 Marcus Grellert - wp@lynk.de
+Copyright (c) 2005 Marcus Grellert - email: wp#lynk.de
 
 Code on this page released under the MIT license
 http://www.opensource.org/licenses/mit-license.html
@@ -60,7 +60,7 @@ if(!function_exists('lynkff_addAdminMenu')) {
 function lynkff_checkGd(){
 	if(imagecreate(1,1)){
 	return true;
-	}
+	}	
 	else{
 		return false;
 		}
@@ -73,7 +73,7 @@ function lynkff_checkGd(){
 */
 function lynkff_checkDir()
 {
-	$default_serial = 'a:8:{s:12:"lynkff_width";s:3:"160";s:13:"lynkff_height";s:2:"40";s:12:"lynkff_color";s:7:"#ffffff";s:12:"lynkff_order";s:1:"1";s:11:"lynkff_loop";s:1:"1";s:11:"lynkff_time";s:2:"11";s:11:"lynkff_fade";s:1:"1";s:13:"lynkff_submit";s:4:"Save";}';
+	$default_serial = 'a:9:{s:12:"lynkff_width";s:3:"185";s:13:"lynkff_height";s:2:"60";s:12:"lynkff_color";s:7:"#ffffff";s:12:"lynkff_order";s:1:"1";s:11:"lynkff_loop";s:1:"1";s:11:"lynkff_time";s:1:"9";s:11:"lynkff_fade";s:1:"2";s:12:"lynkff_valid";s:1:"1";s:13:"lynkff_submit";s:4:"Save";}';
 
 	if(file_exists(ABSPATH.'wp-content/flashfader/'))
 	{
@@ -98,7 +98,7 @@ function lynkff_checkDir()
    			fclose($handle);
 			
 			 // Write flash code to embed in html
-			lynkff_writeFlashHtml('40','160','#ffffff');
+			lynkff_writeFlashHtml('60','185','#ffffff',1);
 			
 			return true;	
 			}
@@ -158,17 +158,19 @@ $out .= '</gallery>';
 /*
 * Writes flash code to embed in html
 */
-function lynkff_writeFlashHtml($height,$width,$color)
+function lynkff_writeFlashHtml($height,$width,$color,$valid)
 {
-
-	$tmpl = '
-<object type="application/x-shockwave-flash" data="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" width="'.$width.'" height="'.$height.'">
-<param name="bgcolor" value="'.$color.'" />
-<param name="movie" value="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" />
-<param name="FlashVars" value="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml" />
-<param name="quality" value="high" />
-</object>
-';
+	if($valid!=1)
+	{
+	// invalid xhtml
+	$tmpl = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0"
+ width="'.$width.'" height="'.$height.'" id="flashfader" align=""><param name="movie" value="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" /><param name="FlashVars" value="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml"><param name="quality" value="high" /><param name="bgcolor" value="'.$color.'" /><embed src="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" FlashVars="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml" quality="high" bgcolor="'.$color.'" width="'.$width.'" height="'.$height.'" name="flashfader" align="" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed></object>';
+	}
+	else
+		{
+		// valid xhtml
+		$tmpl = '<object type="application/x-shockwave-flash" data="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" width="'.$width.'" height="'.$height.'"><param name="bgcolor" value="'.$color.'" /><param name="movie" value="'.get_settings('siteurl').'/wp-content/plugins/flashfader.swf" /><param name="FlashVars" value="path2xml='.get_settings('siteurl').'/wp-content/flashfader/images.xml" /><param name="quality" value="high" /></object>';
+		}
 
 	$handle = fopen(ABSPATH.'wp-content/flashfader/flashfaderhtml.txt', 'w');
 	fwrite($handle,$tmpl);
@@ -290,7 +292,7 @@ function lynkff_displayForm()
    			fclose($handle);
 			
 			// Write new flash-html
-			lynkff_writeFlashHtml($_POST['lynkff_height'],$_POST['lynkff_width'],$_POST['lynkff_color']);
+			lynkff_writeFlashHtml($_POST['lynkff_height'],$_POST['lynkff_width'],$_POST['lynkff_color'],$_POST['lynkff_valid']);
 			
 			// Update XMl
 			lynkff_writeImageXml();
@@ -320,7 +322,7 @@ function lynkff_displayForm()
 							// Create Images
 							$r_image = imagecreatefromjpeg($_FILES['lynkff_file']['tmp_name']);
 							$new_image = lynkff_makeImage($r_image,$a_data['lynkff_height'],$a_data['lynkff_width'],ABSPATH.'wp-content/flashfader/'.$img_id.'.jpg');
-							$new_image = lynkff_makeImage($r_image,80,80,ABSPATH.'wp-content/flashfader/'.$img_id.'_thumb.jpg');
+							$new_image = lynkff_makeImage($r_image,60,60,ABSPATH.'wp-content/flashfader/'.$img_id.'_thumb.jpg');
 							
 							$a_images = unserialize(file_get_contents(ABSPATH.'wp-content/flashfader/images.txt'));
 							
@@ -414,13 +416,13 @@ function lynkff_displayForm()
 					<form method="post" action="'.$_SERVER['REQUEST_URI'].'">
 		
 		Width: <input type="text" name="lynkff_width" class="lynkff" value="'.$_POST['lynkff_width'].'"  />px
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Height: <input type="text" name="lynkff_height" class="lynkff" value="'.$_POST['lynkff_height'].'" />px &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Background-Color: <input type="text" name="lynkff_color" value="'.$_POST['lynkff_color'].'" /> (use hexadecimal code including #,i.e.: #ff6600)
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Height: <input type="text" name="lynkff_height" class="lynkff" value="'.$_POST['lynkff_height'].'" />px &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Background-Color: <input type="text" name="lynkff_color" value="'.$_POST['lynkff_color'].'" style="width:60px;" /> (use hexadecimal code including #,i.e.: #ff6600)
 		<br /><br />
 		
 		Fade Order: &nbsp;<input type="text" name="lynkff_order" class="lynkff" value="'.$_POST['lynkff_order'].'" /> (1=sequential, 0=random) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Looping: <input type="text" name="lynkff_loop" class="lynkff" value="'.$_POST['lynkff_loop'].'" /> (1=yes, 0=no)
 	<br /><br />
 	
-	Image display time: <input type="text" name="lynkff_time" class="lynkff" value="'.$_POST['lynkff_time'].'" />sec. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image2Image fade time: <input type="text" name="lynkff_fade" class="lynkff" value="'.$_POST['lynkff_fade'].'" /> (1=slowest)
+	Image display time: <input type="text" name="lynkff_time" class="lynkff" value="'.$_POST['lynkff_time'].'" />sec. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Image2Image fade time: <input type="text" name="lynkff_fade" class="lynkff" value="'.$_POST['lynkff_fade'].'" /> (1=slowest) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XHTML-valid flash embed:<input type="text" name="lynkff_valid" value="'.$_POST['lynkff_valid'].'" class="lynkff" />(1=yes, 0=no)
 	<br /><br />
 	
 		<input type="submit" name="lynkff_submit" value="Save" />
@@ -465,6 +467,15 @@ function lynkff_displayForm()
 					
 					}//if
 					
+					
+					// Add notes
+				$out .= '<fieldset class="options"> 
+    <legend>Notes</legend>
+	<b>Code for the template</b>:<br />
+	&lt;?php include (ABSPATH.\'wp-content/flashfader/flashfaderhtml.txt\'); ?&gt;
+	<br /><br />
+	<b>XHTML-valid flash embed option</b>: Regular code to embed flash movies in HTML includes code which is invalid in XHTML. There is a workaround which validates, but the flash might not display in certain oldish browsers, i.e. IE on Mac, Netscape 4.x . It works with all current big browsers: IE(Win), Firefox, Mozilla, Safari, Opera. 
+	</fieldset>';
 					
 				// Add uninstall
 				$out .= '<div style="text-align:right"><form method="post" action="'.$_SERVER['REQUEST_URI'].'"><input type="submit" name="lynkff_uninst" value="Uninstall Flashfader" onclick="javascript:check=confirm(\'You are about to delete all your settings and images! Are you sure?\');if(check==false) return false;" /></form></div>';
