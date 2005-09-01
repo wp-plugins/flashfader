@@ -18,7 +18,7 @@ WordPress Flashfader 1.0 Plugin - Instructions
 	 <div id="sidebar">
 	 
 	<!-- Flashfader -->
-	<?php include (ABSPATH.'/wp-content/flashfader/flashfaderhtml.txt'); ?>
+	<?php include (ABSPATH.'wp-content/flashfader/flashfaderhtml.txt'); ?>
 	<!-- /Flashfader -->
 	
 	Upload sidebar.php in the template's directory.
