@@ -6,7 +6,7 @@ WordPress Flashfader 1.1 Plugin - http://www.lynk.de/flashfader/
 
   0.  Update to 1.1:
 	If you update to 1.1 just copy flashfader.php in your plugins directory,
-      go to the flashfader admin and press save in the Display Settings.
+      go to the flashfader admin and press Save in the Display Settings.
 
  
   1. First Install: Copy the 2 files flashfader.php and flashfader.swf
