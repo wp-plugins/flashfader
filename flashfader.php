@@ -3,7 +3,7 @@
 
 Plugin Name: Flashfader
 Plugin URI: http://www.lynk.de/flashfader/
-Description: This plugin allows you to put a flash slideshow on your site. Image upload & configuration via the admin panel.
+Description: This plugin allows you to put a flash slideshow on your site. Image upload and configuration via the admin panel.
 Version: 1.1
 Author: Marcus Grellert
 Author URI: http://www.lynk.de/
@@ -267,7 +267,7 @@ function lynkff_displayForm()
 {
 	global $lynkff_txt_dir, $lynkff_txt_gd, $lynkff_submit_ok;
 
-	$out = '';
+	$out = $lynkff_uninstall = '';
 
 	
 	// Check for GD lib
@@ -398,7 +398,8 @@ function lynkff_displayForm()
 							lynkff_removeDir(ABSPATH.'wp-content/flashfader/');
 							$note = $lynkff_submit_ok.'<br />
 							All files and folders have been deleted. Now click <b>Plugins</b> in the admin panel above and <b>Deactivate</b> the Flashfader plugin.';
-							error_reporting(0);							
+							$lynkff_uninstall = 1;
+							error_reporting(0);					
 							}
 					
 					
@@ -409,6 +410,13 @@ function lynkff_displayForm()
 					
 					// Open file and populate $_POST with unserialized data
 					$_POST = unserialize(file_get_contents(ABSPATH.'wp-content/flashfader/data.txt'));	
+
+					// Check if update to 1.1
+					if(!isset($_POST['lynkff_valid']) AND $lynkff_uninstall!=1)
+					{
+					$_POST['lynkff_valid'] = 1;
+					$note .= 'To <b>finish your update to Version 1.1</b> click "Save" in the Display Settings section.';
+					}
 
 					$out .= '
 					<fieldset class="options"> 
@@ -487,7 +495,7 @@ function lynkff_displayForm()
 	
 	// Note snuff
 	if(!empty($note))
-	$note = '<fieldset class="options" style="background:#fffdf4;"> 
+	$note = '<fieldset class="options" style="background:#fef0c2;"> 
     <legend>Notice</legend>'.$note.'</fieldset>';
 	
 	
