@@ -88,12 +88,12 @@ function lynkff_checkDir()
 			mkdir(ABSPATH.'wp-content/flashfader/',0777);
 				
 			// Write default data file
-   			$handle = fopen(ABSPATH.'wp-content/flashfader/data.txt', 'x');
+   			$handle = fopen(ABSPATH.'wp-content/flashfader/data.txt', 'w');
 			fwrite($handle, $default_serial);
    			fclose($handle);
 			
 			// Write default images file
-   			$handle = fopen(ABSPATH.'wp-content/flashfader/images.txt', 'x');
+   			$handle = fopen(ABSPATH.'wp-content/flashfader/images.txt', 'w');
 			fwrite($handle, '');
    			fclose($handle);
 			
