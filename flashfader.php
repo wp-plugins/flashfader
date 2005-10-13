@@ -2,7 +2,7 @@
 /*
 
 Plugin Name: Flashfader
-Plugin URI: http://www.lynk.de/flashfader/
+Plugin URI: http://www.lynk.de/wordpress/flashfader/
 Description: This plugin allows you to put a flash slideshow on your site. Image upload and configuration via the admin panel.
 Version: 1.1.1
 Author: Marcus Grellert
@@ -21,7 +21,7 @@ http://whatdoiknow.org/archives/001629.shtml
 
 Installation - Usage - Uninstallation:
 => how_to_use.txt
-or http://www.lynk.de/flashfader/
+or http://www.lynk.de/wordpress/flashfader/
 
 
 */
