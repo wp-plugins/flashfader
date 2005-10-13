@@ -4,7 +4,7 @@
 Plugin Name: Flashfader
 Plugin URI: http://www.lynk.de/flashfader/
 Description: This plugin allows you to put a flash slideshow on your site. Image upload and configuration via the admin panel.
-Version: 1.2
+Version: 1.1.1
 Author: Marcus Grellert
 Author URI: http://www.lynk.de/
 
