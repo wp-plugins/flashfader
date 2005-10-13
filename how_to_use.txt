@@ -1,5 +1,9 @@
 
-WordPress Flashfader 1.1 Plugin - http://www.lynk.de/wordpress/flashfader/
+Version: 1.1.1
+Date: 13. October 2005
+
+WordPress Flashfader Plugin 
+http://www.lynk.de/wordpress/flashfader/
 
 
   ## Installation - Usage - Uninstallation ##
