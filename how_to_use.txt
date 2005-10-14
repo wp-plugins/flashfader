@@ -1,6 +1,6 @@
 
 Version: 1.1.1
-Date: 13. October 2005
+Date: 14. October 2005
 
 WordPress Flashfader Plugin 
 http://www.lynk.de/wordpress/flashfader/
@@ -60,7 +60,13 @@ http://www.lynk.de/wordpress/flashfader/
 	 
 	 
 	 
-	 questions, comments, bug reports: wp#lynk.de
+	 ===========
+	 changelog
+	 
+	 1.1.1 	2005-10-14 : 
+	 changed GD lib checking [no need to upgrade for working install]
+	 1.1 	2005-09-?? :
+	 added xhtml-valid flash embed option
 	 
 	 
 	 
