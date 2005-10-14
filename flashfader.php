@@ -19,9 +19,8 @@ Original crossfading slideshow flash by Todd Dominey
 http://whatdoiknow.org/archives/001629.shtml
 
 
-Installation - Usage - Uninstallation:
-=> how_to_use.txt
-or http://www.lynk.de/flashfader/
+Installation - Usage - Uninstallation => how_to_use.txt
+
 
 
 */
