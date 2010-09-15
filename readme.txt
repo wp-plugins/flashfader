@@ -15,17 +15,17 @@ This plugin allows you to put a flash slideshow on your site. Image upload and c
 
 == Installation ==
 
-  0. Update to 1.1.1:
+0. Update to 1.1.1:
 	 If you update to 1.1.1 just copy flashfader.php in your plugins directory,
      go to the flashfader admin and press Save in the Display Settings.
 
  
-  1. First Install: Copy the 2 files flashfader.php and flashfader.swf
+1. First Install: Copy the 2 files flashfader.php and flashfader.swf
      in the plugins directory (wp-content/plugins). Activate the plugin.
 	  Go to "Posts" in the admin panel, open submenu item "Flashfader"	 
 
 
-  2. Usage:
+2. Usage:
      If you see the settings and upload page, the installation went fine.
 	 Upload 2 images for a test-drive.
 	 
@@ -41,7 +41,7 @@ This plugin allows you to put a flash slideshow on your site. Image upload and c
 	 just make sure it is placed in html and not within `<?php ?>` tags.
 	
 	
-  3. Uninstallation:
+3. Uninstallation:
   	
 	 First remove the code that calls the flash in the template! You might get
 	 an ugly error message on your page otherwise.
@@ -55,7 +55,7 @@ This plugin allows you to put a flash slideshow on your site. Image upload and c
 	 
 	 
 	 
-	 4. Note on sizes
+4. Note on sizes
 	
 	If you have a working slideshow and change the size in the display
 	settings, the current images won't be resized.
@@ -63,8 +63,8 @@ This plugin allows you to put a flash slideshow on your site. Image upload and c
 	
 	
 	
-	===========
-	 changelog
+===========
+changelog
 	 
 	 1.1.1 	2005-10-14 : 
 	 changed GD lib checking [no need to upgrade for working install]
