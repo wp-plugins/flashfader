@@ -12,6 +12,7 @@ Put a flash slideshow on your wordpress site
 == Description ==
 
 This plugin allows you to put a flash slideshow on your site. Image upload and configuration via the admin panel.
+Demo: (http://www.lynk.de "www.lynk.de")
 
 == Installation ==
 
